@@ -51,10 +51,17 @@ describe('App', () => {
 
   it('renders language badges for all target languages', () => {
     render(<App />);
-    expect(screen.getByText('Python')).toBeDefined();
-    expect(screen.getByText('Rust')).toBeDefined();
-    expect(screen.getByText('Java')).toBeDefined();
-    expect(screen.getByText('C++')).toBeDefined();
+    // Use getAllByText since languages appear in both selector and badges
+    const pythonElements = screen.getAllByText('Python');
+    const rustElements = screen.getAllByText('Rust');
+    const javaElements = screen.getAllByText('Java');
+    const cppElements = screen.getAllByText('C++');
+
+    // Each language should appear at least twice (selector option + badge)
+    expect(pythonElements.length).toBeGreaterThanOrEqual(2);
+    expect(rustElements.length).toBeGreaterThanOrEqual(2);
+    expect(javaElements.length).toBeGreaterThanOrEqual(2);
+    expect(cppElements.length).toBeGreaterThanOrEqual(2);
   });
 
   it('renders a language selector', () => {
